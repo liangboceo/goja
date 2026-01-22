@@ -1,8 +1,8 @@
 package goja
 
 import (
-	"encoding/json"
 	"errors"
+	"github.com/bytedance/sonic"
 	"strings"
 	"testing"
 	"time"
@@ -13,7 +13,7 @@ func TestJSONMarshalObject(t *testing.T) {
 	o := vm.NewObject()
 	o.Set("test", 42)
 	o.Set("testfunc", vm.Get("Error"))
-	b, err := json.Marshal(o)
+	b, err := sonic.Marshal(o)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -26,7 +26,7 @@ func TestJSONMarshalGoDate(t *testing.T) {
 	vm := New()
 	o := vm.NewObject()
 	o.Set("test", time.Unix(86400, 0).UTC())
-	b, err := json.Marshal(o)
+	b, err := sonic.Marshal(o)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -39,7 +39,7 @@ func TestJSONMarshalObjectCircular(t *testing.T) {
 	vm := New()
 	o := vm.NewObject()
 	o.Set("o", o)
-	_, err := json.Marshal(o)
+	_, err := sonic.Marshal(o)
 	if err == nil {
 		t.Fatal("Expected error")
 	}

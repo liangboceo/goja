@@ -3,11 +3,12 @@ package parser
 import (
 	"bytes"
 	"encoding/json"
+	"github.com/bytedance/sonic"
 	"reflect"
 	"strings"
 	"testing"
 
-	"github.com/dop251/goja/ast"
+	"github.com/liangboceo/goja/ast"
 )
 
 func marshal(name string, children ...interface{}) interface{} {
@@ -186,7 +187,7 @@ func testMarshalNode(node interface{}) interface{} {
 }
 
 func testMarshal(node interface{}) string {
-	value, err := json.Marshal(testMarshalNode(node))
+	value, err := sonic.Marshal(testMarshalNode(node))
 	if err != nil {
 		panic(err)
 	}
